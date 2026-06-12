@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TAKSS - Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="auth-page" class="page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <h1>TAKSS</h1>
+      <p>Task Management Dashboard</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="tab-btn active" data-tab="login">Sign In</button>
+      <button class="tab-btn" data-tab="register">Register</button>
+    </div>
+
+    <div id="auth-alert" class="alert"></div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+
+    <form id="register-form" style="display:none">
+      <div class="form-group">
+        <label for="reg-name">Full Name</label>
+        <input type="text" id="reg-name" placeholder="John Doe" required />
+      </div>
+      <div class="form-group">
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label for="reg-password">Password <span style="color:var(--text-muted); font-weight:400">(min 6 chars)</span></label>
+        <input type="password" id="reg-password" placeholder="Create a password" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<div id="dashboard-page" class="page">
+
+  <nav class="navbar">
+    <span class="navbar-brand">TAKSS</span>
+    <div class="navbar-right">
+      <div class="user-badge">
+        <span id="nav-username"></span>
+        <span id="nav-role" class="role-badge"></span>
+      </div>
+      <button id="logout-btn" class="btn btn-outline btn-sm">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="main-content">
+
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total Tasks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-pending" style="color:#d97706">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-progress" style="color:#2563eb">0</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-done" style="color:#059669">0</div>
+        <div class="stat-label">Completed</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" id="task-form-title">➕ New Task</div>
+      <form id="task-form">
+        <div class="form-group">
+          <label for="task-title">Task Title *</label>
+          <input type="text" id="task-title" placeholder="What needs to be done?" required />
+        </div>
+        <div class="form-group">
+          <label for="task-desc">Description</label>
+          <textarea id="task-desc" placeholder="Add more details (optional)"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-status">Status</label>
+            <select id="task-status">
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="task-priority">Priority</label>
+            <select id="task-priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button type="submit" id="task-submit-btn" class="btn btn-primary" style="flex:1">Add Task</button>
+          <button type="button" id="cancel-edit-btn" class="btn btn-outline" style="display:none">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="section-header">
+      <h2 class="section-title">My Tasks</h2>
+    </div>
+
+    <div class="task-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="pending">Pending</button>
+      <button class="filter-btn" data-filter="in-progress">In Progress</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
+
+    <div id="task-list" class="task-list">
+      <div class="empty-state"><div class="empty-icon">📋</div><p>Loading tasks...</p></div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-section" style="display:none; margin-top:40px;">
+      <div class="section-header">
+        <h2 class="section-title">Admin — Registered Users</h2>
+      </div>
+      <div id="admin-user-list" class="task-list" style="margin-top:16px;"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
